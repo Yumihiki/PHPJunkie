@@ -1,0 +1,14 @@
+table, th, td {
+  border: 1px solid black;
+  text-align: center;
+  font-weight: 100;
+  color: #333333;
+}
+th, td {
+  height: 50px;
+  width: 50px;
+}
+
+.even {
+  background-color: aqua;
+}
