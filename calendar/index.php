@@ -16,7 +16,6 @@ require_once 'calendar.php';
 <a href="<?= e('?YYYYM='.$lastYearAndMonth) ?>">前月</a>
 <a href="<?= e('?YYYYM='.$nextYearAndMonth) ?>">来月</a>
 
-<!-- <?=  "<p>$dispThisYearAndMonth</p>"?> -->
 <?= "<p>" . $year . "年" . $month . "月" . "</p>"?>
   <table>
     <tr>
