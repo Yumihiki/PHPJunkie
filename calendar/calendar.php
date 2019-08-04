@@ -4,29 +4,23 @@
 
   $date = '';
 
+  $now = new DateTime();
+
   if (!empty($_GET['YYYYM'])) {
-    // $date      = $_GET["date"] . "01";
-    // $thisMonth = $_GET["date"] . "01";
     $explode   = explode("_", $_GET["YYYYM"]);
     $thisYear  = $explode[0];
     $thisMonth = $explode[1];
+    unset($explode);
   } else {
-    $thisYear    = date("Y");
-    $thisMonth   = date(n);
-    $toDayCheck  = date('Ymj');
+    $thisYear  = date("Y");
+    $thisMonth = date("n");
   }
 
-  // $t = date("t", $date);
-  // $y = date("Y", $date);
-  // $m = date("m", $date);
+  $toDay = date('Ymj');
 
   $lastMonth = date('n',mktime(0,0,0,$thisMonth-1,1,$thisYear)); 
   $thisMonth = date('n',mktime(0,0,0,$thisMonth,1,$thisYear)); 
   $nextMonth = date('n',mktime(0,0,0,$thisMonth+1,1,$thisYear)); 
-  $toDay   = date('Ymj');
-  $echoToDay   = date('Y年n月j日');
-
-  $toYearToMonth = date('Ym');
 
   // 月の日数
   $lastMonthDays = date('t',mktime(0,0,0,$thisMonth-1,1,$thisYear));
@@ -39,12 +33,15 @@
   $nextYearAndMonth = date('Y_n',mktime(0,0,0,$thisMonth+1,1,$thisYear));
 
   // スクリプト上の月を返す
-  $nextYearAndMonth = date('Y_n',mktime(0,0,0,$thisMonth+1,1,$thisYear));
   $thisYearAndMonthYm = date('Ym',mktime(0,0,0,$thisMonth,1,$thisYear));
 
-  // 1日の曜日番号を返す
-  $firstDayNumber = date('N',mktime(0,0,0,$thisMonth,1,$thisYear));
-  $firstDayNumber = (int)$firstDayNumber;
+  $explode = explode("_", $thisYearAndMonth);
+  $year  = $explode[0];
+  $month = $explode[1];
+  unset($explode);
+
+  // 1日の曜日番号を数字型で返す
+  $firstDayNumber = (int)date('N',mktime(0,0,0,$thisMonth,1,$thisYear));
 
   $weeks = [
     '月' => 'monday',
@@ -56,10 +53,11 @@
     '日' => 'sunday'
   ];
 
-  $dispThisYearAndMonth = $thisYear . "年" . $thisMonth . "月";
   
   function e(string $str, string $charset = 'UTF-8'): string {
     return htmlspecialchars($str, ENT_QUOTES | ENT_HTML5, $charset);
   // 独習PHP 第3版 P307より
   }
+
+  
 ?>
