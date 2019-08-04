@@ -1,18 +1,20 @@
 <?php
 
-$date = '';
+  // 変数など基本的な内容はここに
 
-if (!empty($_GET['YYYYM'])) {
-  // $date      = $_GET["date"] . "01";
-  // $thisMonth = $_GET["date"] . "01";
-  $explode   = explode("_", $_GET["YYYYM"]);
-  $thisYear  = $explode[0];
-  $thisMonth = $explode[1];
-} else {
-  $thisYear    = (int)date("Y");
-  $thisMonth   = (int)date(n);
-  $toDayCheck  = date('Ymj');
-}
+  $date = '';
+
+  if (!empty($_GET['YYYYM'])) {
+    // $date      = $_GET["date"] . "01";
+    // $thisMonth = $_GET["date"] . "01";
+    $explode   = explode("_", $_GET["YYYYM"]);
+    $thisYear  = $explode[0];
+    $thisMonth = $explode[1];
+  } else {
+    $thisYear    = date("Y");
+    $thisMonth   = date(n);
+    $toDayCheck  = date('Ymj');
+  }
 
   // $t = date("t", $date);
   // $y = date("Y", $date);
@@ -23,8 +25,6 @@ if (!empty($_GET['YYYYM'])) {
   $nextMonth = date('n',mktime(0,0,0,$thisMonth+1,1,$thisYear)); 
   $toDay   = date('Ymj');
   $echoToDay   = date('Y年n月j日');
-
-  $toDayj = date('j');
 
   $toYearToMonth = date('Ym');
 
@@ -56,4 +56,10 @@ if (!empty($_GET['YYYYM'])) {
     '日' => 'sunday'
   ];
 
-  ?>
+  $dispThisYearAndMonth = $thisYear . "年" . $thisMonth . "月";
+  
+  function e(string $str, string $charset = 'UTF-8'): string {
+    return htmlspecialchars($str, ENT_QUOTES | ENT_HTML5, $charset);
+  // 独習PHP 第3版 P307より
+  }
+?>
