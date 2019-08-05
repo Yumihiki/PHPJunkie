@@ -4,6 +4,7 @@
 
   // 前月の取得　
   if ($firstDayNumber > 1) {
+    // 定数化検討
     $loopNumberOfTimes = $firstDayNumber - 2;
     $loopStartDay = $lastMonthDays - $loopNumberOfTimes;
     for ($i=$loopStartDay; $i <= $lastMonthDays; $i++) {
@@ -16,7 +17,7 @@
 
   for ($i=1; $i <= $thisMonthDays ; $i++) {
     $class = "";
-    if ($thisYearAndMonthYm . $i === $toDay) {
+    if ($thisYearAndMonth . $i === $toDay) {
       // 当日
       $class = "today";
     } else {
@@ -53,19 +54,19 @@
     // TODO: 各曜日のクラスをつける
     switch ($weekNumber) {
       case MONDAY:
-        $class = "";
+        $class = "monday";
         break;
       case TUESDAY:
-        $class = "";
+        $class = "tuesday";
         break;
       case WEDNESDAY:
-        $class = "";
+        $class = "wednesday";
         break;
       case THURSDAY:
-        $class = "";
+        $class = "thursday";
         break;
       case FRIDAY:
-        $class = "";
+        $class = "friday";
         break;
       case SATURDAY:
         $class = "saturday";

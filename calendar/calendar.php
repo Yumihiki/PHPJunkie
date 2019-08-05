@@ -10,42 +10,34 @@
   define('SATURDAY', 6);
   define('SUNDAY', 7);
 
-  $date = "";
-
   $now = new DateTime();
 
+  $date = "";
   // 年月があるかチェック
-  if (!empty($_GET['YYYYM'])) {
-    $date = $_GET['YYYYM'] . "01";
+  if (!empty($_GET['YYYYMM'])) {
+    $date = $_GET['YYYYMM'] . "01";
   }
   // 表示する日付取得
   $thisDateTime = new DateTime($date);
   $thisYear  = $thisDateTime->format("Y");
   $thisMonth = $thisDateTime->format("n");
-  // 出力する用 いるのか?
-  $year  = $thisYear;
-  $month = $thisMonth;
   // 今日の日付取得
-  $toDay = date('Ymj');
+  $toDay = $now->format('Ymj');
 
-  $lastMonth = date('n',mktime(0,0,0,$thisMonth-1,1,$thisYear));
-  $thisMonth = date('n',mktime(0,0,0,$thisMonth,1,$thisYear));
-  $nextMonth = date('n',mktime(0,0,0,$thisMonth+1,1,$thisYear));
+  // 先月の日数と月の取得
+  $lastMonthDays    = $thisDateTime->modify('-1 months')->format('t');
+  $lastMonth        = $thisDateTime->format('Ym');
 
-  // 月の日数
-  $lastMonthDays = date('t',mktime(0,0,0,$thisMonth-1,1,$thisYear));
-  $thisMonthDays = date('t',mktime(0,0,0,$thisMonth,1,$thisYear));
-  $nextMonthDays = date('t',mktime(0,0,0,$thisMonth+1,1,$thisYear));
-
-  // 年月 201907 のように返す
-  $lastYearAndMonth = date('Ym',mktime(0,0,0,$thisMonth-1,1,$thisYear));
-  $nextYearAndMonth = date('Ym',mktime(0,0,0,$thisMonth+1,1,$thisYear));
-
-  // スクリプト上の月を返す
-  $thisYearAndMonthYm = date('Ym',mktime(0,0,0,$thisMonth,1,$thisYear));
+  // 今月の日数と月の取得
+  $thisMonthDays    = $thisDateTime->modify('+1 months')->format('t');
+  $thisYearAndMonth = $thisDateTime->format('Ym');
 
   // 1日の曜日番号を数字型で返す
-  $firstDayNumber = (int)date('N',mktime(0,0,0,$thisMonth,1,$thisYear));
+  $firstDayNumber   = (int)$thisDateTime->format('N');
+
+  // 来月の日数と月の取得  
+  $nextMonthDays    = $thisDateTime->modify('+1 months')->format('t');
+  $nextMonth        = $thisDateTime->format('Ym');
 
   $weeks = [
     '月' => 'monday',
