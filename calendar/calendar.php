@@ -1,44 +1,48 @@
 <?php
 
   // 変数など基本的な内容はここに
+  // 曜日の定数
+  define('MONDAY', 1);
+  define('TUESDAY', 2);
+  define('WEDNESDAY', 3);
+  define('THURSDAY', 4);
+  define('FRIDAY', 5);
+  define('SATURDAY', 6);
+  define('SUNDAY', 7);
 
-  $date = '';
+  $date = "";
 
   $now = new DateTime();
 
+  // 年月があるかチェック
   if (!empty($_GET['YYYYM'])) {
-    $explode   = explode("_", $_GET["YYYYM"]);
-    $thisYear  = $explode[0];
-    $thisMonth = $explode[1];
-    unset($explode);
-  } else {
-    $thisYear  = date("Y");
-    $thisMonth = date("n");
+    $date = $_GET['YYYYM'] . "01";
   }
-
+  // 表示する日付取得
+  $thisDateTime = new DateTime($date);
+  $thisYear  = $thisDateTime->format("Y");
+  $thisMonth = $thisDateTime->format("n");
+  // 出力する用 いるのか?
+  $year  = $thisYear;
+  $month = $thisMonth;
+  // 今日の日付取得
   $toDay = date('Ymj');
 
-  $lastMonth = date('n',mktime(0,0,0,$thisMonth-1,1,$thisYear)); 
-  $thisMonth = date('n',mktime(0,0,0,$thisMonth,1,$thisYear)); 
-  $nextMonth = date('n',mktime(0,0,0,$thisMonth+1,1,$thisYear)); 
+  $lastMonth = date('n',mktime(0,0,0,$thisMonth-1,1,$thisYear));
+  $thisMonth = date('n',mktime(0,0,0,$thisMonth,1,$thisYear));
+  $nextMonth = date('n',mktime(0,0,0,$thisMonth+1,1,$thisYear));
 
   // 月の日数
   $lastMonthDays = date('t',mktime(0,0,0,$thisMonth-1,1,$thisYear));
   $thisMonthDays = date('t',mktime(0,0,0,$thisMonth,1,$thisYear));
   $nextMonthDays = date('t',mktime(0,0,0,$thisMonth+1,1,$thisYear));
-    
-  // 年月 2019_7 のように返す
-  $lastYearAndMonth = date('Y_n',mktime(0,0,0,$thisMonth-1,1,$thisYear));
-  $thisYearAndMonth = date('Y_n',mktime(0,0,0,$thisMonth,1,$thisYear));
-  $nextYearAndMonth = date('Y_n',mktime(0,0,0,$thisMonth+1,1,$thisYear));
+
+  // 年月 201907 のように返す
+  $lastYearAndMonth = date('Ym',mktime(0,0,0,$thisMonth-1,1,$thisYear));
+  $nextYearAndMonth = date('Ym',mktime(0,0,0,$thisMonth+1,1,$thisYear));
 
   // スクリプト上の月を返す
   $thisYearAndMonthYm = date('Ym',mktime(0,0,0,$thisMonth,1,$thisYear));
-
-  $explode = explode("_", $thisYearAndMonth);
-  $year  = $explode[0];
-  $month = $explode[1];
-  unset($explode);
 
   // 1日の曜日番号を数字型で返す
   $firstDayNumber = (int)date('N',mktime(0,0,0,$thisMonth,1,$thisYear));
@@ -53,11 +57,7 @@
     '日' => 'sunday'
   ];
 
-  
   function e(string $str, string $charset = 'UTF-8'): string {
     return htmlspecialchars($str, ENT_QUOTES | ENT_HTML5, $charset);
   // 独習PHP 第3版 P307より
   }
-
-  
-?>
