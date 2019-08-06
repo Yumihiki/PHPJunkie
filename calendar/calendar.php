@@ -14,30 +14,34 @@
 
   $date = "";
   // 年月があるかチェック
-  if (!empty($_GET['YYYYMM'])) {
-    $date = $_GET['YYYYMM'] . "01";
+  if (!empty($_GET['Ym'])) {
+    $date = $_GET['Ym'] . "01";
+  } else {
+    $date = $now->format("Ym") . "01";
   }
+  // TODO : $thisDateTimeを多用しているためもっと修正できるのでは？
   // 表示する日付取得
   $thisDateTime = new DateTime($date);
-  $thisYear  = $thisDateTime->format("Y");
-  $thisMonth = $thisDateTime->format("n");
+  $thisYear     = $thisDateTime->format("Y");
+  $thisMonth    = $thisDateTime->format("n");
   // 今日の日付取得
   $toDay = $now->format('Ymj');
 
-  // 先月の日数と月の取得
-  $lastMonthDays    = $thisDateTime->modify('-1 months')->format('t');
-  $lastMonth        = $thisDateTime->format('Ym');
+  // 先月と先月の日数の取得
+  $lastMonth        = $thisDateTime->modify('-1 months')->format('Ym');
+  $lastMonthDays    = $thisDateTime->format('t');
 
   // 今月の日数と月の取得
+  // $thisDateTimeは先月の日数を取得するときに-1されているので+1行う
   $thisMonthDays    = $thisDateTime->modify('+1 months')->format('t');
   $thisYearAndMonth = $thisDateTime->format('Ym');
 
   // 1日の曜日番号を数字型で返す
   $firstDayNumber   = (int)$thisDateTime->format('N');
 
-  // 来月の日数と月の取得  
-  $nextMonthDays    = $thisDateTime->modify('+1 months')->format('t');
-  $nextMonth        = $thisDateTime->format('Ym');
+  // 来月と来月の日数の取得
+  $nextMonth        = $thisDateTime->modify('+1 months')->format('Ym');
+  $nextMonthDays    = $thisDateTime->format('t');
 
   $weeks = [
     '月' => 'monday',

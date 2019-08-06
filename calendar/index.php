@@ -13,11 +13,10 @@
 require_once 'calendar.php';
 ?>
 
-<a href="<?= e('?YYYYMM='.$lastMonth) ?>">前月</a>
+<a href="<?= e("?Ym={$lastMonth}") ?>">前月</a>
 <a href="./">今月</a>
-<a href="<?= e('?YYYYMM='.$nextMonth) ?>">来月</a>
-
-<?= "<p>" . $thisYear . "年" . $thisMonth . "月" . "</p>"?>
+<a href="<?= e("?Ym={$nextMonth}") ?>">来月</a>
+<?= "<p>{$thisYear}年{$thisMonth}月</p>"?>
   <table>
     <tr>
       <?php

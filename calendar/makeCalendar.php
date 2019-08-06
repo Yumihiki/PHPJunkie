@@ -45,7 +45,7 @@
 
   /**
    * 曜日番号からclass名を取得
-   * @param  int $weekNumber 1～７の曜日番号
+   * @param  int $weekNumber 1～7の曜日番号
    * @return str             class名
    */
   function get_week_class($weekNumber)
