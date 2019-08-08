@@ -8,7 +8,7 @@
     $loopNumberOfTimes = $firstDayNumber - 2;
     $loopStartDay = $lastMonthDays - $loopNumberOfTimes;
     for ($i=$loopStartDay; $i <= $lastMonthDays; $i++) {
-      echo "<td class='lastmonth'>$i</td>";
+      echo "<td class='lastmonth text-center'>$i</td>";
     }
   }
 
@@ -25,7 +25,7 @@
       $class = get_week_class($todayNumber);
     }
     // 出力
-    echo "<td class='{$class}'>{$i}</td>";
+    echo "<td class='{$class} text-center'>{$i}</td>";
     // 日曜日なら
     if ($todayNumber === SUNDAY) {
       echo '</tr><tr>';
@@ -38,7 +38,7 @@
   // 次月の取得
   $loopNumberOfTimes = 8 - $todayNumber;
   for ($i = 1; $i <= $loopNumberOfTimes; $i++) {
-    echo "<td class='nextmonth'>$i</td>";
+    echo "<td class='nextmonth text-center'>$i</td>";
   }
 
   echo '</tr>';

@@ -10,7 +10,9 @@
   define('SATURDAY', 6);
   define('SUNDAY', 7);
 
-  $now = new DateTime();
+  // TODO : $thisDateTimeを多用しているためもっと修正できるのでは？
+
+  $now = new DateTime();  
 
   $date = "";
   // 年月があるかチェック
@@ -19,7 +21,7 @@
   } else {
     $date = $now->format("Ym") . "01";
   }
-  // TODO : $thisDateTimeを多用しているためもっと修正できるのでは？
+
   // 表示する日付取得
   $thisDateTime = new DateTime($date);
   $thisYear     = $thisDateTime->format("Y");
@@ -35,7 +37,6 @@
   // $thisDateTimeは先月の日数を取得するときに-1されているので+1行う
   $thisMonthDays    = $thisDateTime->modify('+1 months')->format('t');
   $thisYearAndMonth = $thisDateTime->format('Ym');
-
   // 1日の曜日番号を数字型で返す
   $firstDayNumber   = (int)$thisDateTime->format('N');
 
@@ -43,15 +44,26 @@
   $nextMonth        = $thisDateTime->modify('+1 months')->format('Ym');
   $nextMonthDays    = $thisDateTime->format('t');
 
-  $weeks = [
-    '月' => 'monday',
-    '火' => 'tuesday',
-    '水' => 'wednesday',
-    '木' => 'thursday',
-    '金' => 'friday',
-    '土' => 'saturday',
-    '日' => 'sunday'
-  ];
+  /**
+   * カレンダーの曜日部分をthにて出力
+   */
+  function dispWeek()
+  {
+    $weeks = [
+      '月' => 'monday',
+      '火' => 'tuesday',
+      '水' => 'wednesday',
+      '木' => 'thursday',
+      '金' => 'friday',
+      '土' => 'saturday',
+      '日' => 'sunday'
+    ];
+    
+    foreach ($weeks as $jaDayOfWeek => $enDayOfWeek) {
+      echo "<th class='$enDayOfWeek text-center'>$jaDayOfWeek</th>";
+    }
+  
+  }
 
   function e(string $str, string $charset = 'UTF-8'): string {
     return htmlspecialchars($str, ENT_QUOTES | ENT_HTML5, $charset);
