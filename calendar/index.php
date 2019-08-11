@@ -13,13 +13,10 @@
 </head>
 <body>
 
-<?php
-require_once 'calendar.php';
-?>
-
+<?php require_once 'calendar.php'; ?>
 
 <div class="text-align-center">
-  <?= "<p class='text-center'>{$thisYear}年{$thisMonth}月</p>"?>
+  <h2 class='text-center'><?= $thisMonthYn ?></h2>
 </div>
 
   <div class='container'>
@@ -38,23 +35,14 @@ require_once 'calendar.php';
 
   <table class='table container table-bordered'>
     <tr>
-      <?php
-      dispWeek();
-      ?>
+      <?php dispWeek(); ?>
     </tr>
-  
-    <?php
-    require_once 'makeCalendar.php';
-    ?>
-
+    <?php require_once 'makeCalendar.php'; ?>
   </table>
-
     
   <div class='text-center'>
-    <p><?= $now->format('今日はY年n月j日です');  ?></p>
+    <p><?= $nowYnjMessage; ?></p>
   </div>
-
-
 
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

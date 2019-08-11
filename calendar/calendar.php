@@ -1,6 +1,5 @@
 <?php
 
-  // 変数など基本的な内容はここに
   // 曜日の定数
   define('MONDAY', 1);
   define('TUESDAY', 2);
@@ -10,11 +9,11 @@
   define('SATURDAY', 6);
   define('SUNDAY', 7);
 
-  // TODO : $thisDateTimeを多用しているためもっと修正できるのでは？
-
+  // 実行日の日付を取得
   $now = new DateTime();  
+  $nowYnjMessage  = $now->format('今日はY年n月j日です');
+  $nowYmj         = $now->format('Ymj');
 
-  $date = "";
   // 年月があるかチェック
   if (!empty($_GET['Ym'])) {
     $date = $_GET['Ym'] . "01";
@@ -22,27 +21,26 @@
     $date = $now->format("Ym") . "01";
   }
 
-  // 表示する日付取得
-  $thisDateTime = new DateTime($date);
-  $thisYear     = $thisDateTime->format("Y");
-  $thisMonth    = $thisDateTime->format("n");
-  // 今日の日付取得
-  $toDay = $now->format('Ymj');
-
   // 先月と先月の日数の取得
-  $lastMonth        = $thisDateTime->modify('-1 months')->format('Ym');
-  $lastMonthDays    = $thisDateTime->format('t');
+  $lastMonths    = new DateTime($date);
+  $lastMonths    = $lastMonths->modify('-1 months');
+  $lastMonth     = $lastMonths->format('Ym');
+  $lastMonthDays = $lastMonths->format('t');
 
   // 今月の日数と月の取得
-  // $thisDateTimeは先月の日数を取得するときに-1されているので+1行う
-  $thisMonthDays    = $thisDateTime->modify('+1 months')->format('t');
-  $thisYearAndMonth = $thisDateTime->format('Ym');
-  // 1日の曜日番号を数字型で返す
-  $firstDayNumber   = (int)$thisDateTime->format('N');
+  $thisMonths    = new DateTime($date);
+  $thisMonth     = $thisMonths->format('Ym');
+  $thisMonthYn   = $thisMonths->format('Y年n月');
+  $thisMonthDays = $thisMonths->format('t');
+
+  // 1日(月初めの日)の曜日番号を数字型で返す
+  $firstDayNumber = (int)$thisMonths->format('N');
 
   // 来月と来月の日数の取得
-  $nextMonth        = $thisDateTime->modify('+1 months')->format('Ym');
-  $nextMonthDays    = $thisDateTime->format('t');
+  $nextMonths    = new Datetime($date);
+  $nextMonths    = $nextMonths->modify('+1 months');
+  $nextMonth     = $nextMonths->format('Ym');
+  $nextMonthDays = $nextMonths->format('t');
 
   /**
    * カレンダーの曜日部分をthにて出力
@@ -65,7 +63,13 @@
   
   }
 
-  function e(string $str, string $charset = 'UTF-8'): string {
+  /**
+   * htmlspecialcharsを使用する
+   * @param string $str 表示する予定の文字列
+   * @return       htmlspecialchars関数
+   */
+  function e(string $str, string $charset = 'UTF-8'): string 
+  {
     return htmlspecialchars($str, ENT_QUOTES | ENT_HTML5, $charset);
   // 独習PHP 第3版 P307より
   }

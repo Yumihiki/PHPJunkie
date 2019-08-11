@@ -17,7 +17,7 @@
 
   for ($i=1; $i <= $thisMonthDays ; $i++) {
     $class = "";
-    if ($thisYearAndMonth . $i === $toDay) {
+    if ($thisMonth . $i === $nowYmj) {
       // 当日
       $class = "today";
     } else {
